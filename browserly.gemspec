@@ -9,14 +9,15 @@ Gem::Specification.new do |s|
   s.version     = Browserly::VERSION
   s.authors     = ["Alexander Selivanov"]
   s.email       = ["selivandex@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Browserly."
-  s.description = "TODO: Description of Browserly."
+  s.homepage    = "http://github.com/softeamco/browserly"
+  s.summary     = "Website screenshot for Ruby"
+  s.description = "Website screenshot for Ruby uses Selenium with Chrome Driver"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 5.1.5"
 
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "comandor"
+  s.add_development_dependency "selenium-webdriver"
 end
