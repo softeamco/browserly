@@ -1,8 +1,5 @@
 # Browserly
-Short description and motivation.
-
-## Usage
-How to use my plugin.
+Is a simple tool that helps to create website screenshots using selenium + chrome driver. This gem creates pool of browsers thus increases speed of taking webpage screenshot.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -19,6 +16,22 @@ $ bundle
 Or install it yourself as:
 ```bash
 $ gem install browserly
+```
+
+## Configuration
+
+```ruby
+Browserly.configure do |config|
+  config.tmp_path = 'path/to/store/screenshots'
+  config.pool_size = 1 # count of browsers instance to start
+end
+```
+
+## Usage
+
+```ruby
+screenshot = Browserly::Screenshot.new('http://example.com').perform
+screenshot.file #=> screenshot image file
 ```
 
 ## Contributing

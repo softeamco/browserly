@@ -6,8 +6,8 @@ module Browserly
     attr_reader :browsers
 
     def initialize
-      @browsers = SizedQueue.new(pool_size)
-      pool_size.times { @browsers.push(new_browser) }
+      @browsers = SizedQueue.new(Browserly.configuration.pool_size)
+      Browserly.configuration.pool_size.times { @browsers.push(new_browser) }
     end
 
     def take_browser
@@ -23,10 +23,6 @@ module Browserly
     end
 
     private
-
-    def pool_size
-      ENV.fetch('BROWSER_POOL_SIZE') { 1 }.to_i
-    end
 
     def new_browser
       options = Selenium::WebDriver::Chrome::Options.new(
