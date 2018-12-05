@@ -2,7 +2,7 @@
 
 module Browserly
   class Pool
-    include Singleton
+    include ::Singleton
     attr_reader :browsers
 
     def initialize
@@ -25,7 +25,7 @@ module Browserly
     private
 
     def pool_size
-      ENV.fetch('BROWSER_POOL_SIZE') { 25 }.to_i
+      ENV.fetch('BROWSER_POOL_SIZE') { 1 }.to_i
     end
 
     def new_browser

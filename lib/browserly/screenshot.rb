@@ -43,7 +43,7 @@ module Browserly
     end
 
     def filename
-      Rails.root.join('tmp', 'screenshots', "#{Time.now.to_i}.png")
+      File.join(Browserly.configuration.tmp_path, "#{Time.now.to_i}.png")
     end
   end
 end
