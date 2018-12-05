@@ -1,3 +1,4 @@
+require 'comandor'
 require 'browserly/pool'
 require 'browserly/screenshot'
 require 'browserly/version'
