@@ -41,6 +41,18 @@ Browserly.configure do |config|
 end
 ```
 
+## Run Selenium Standalone Server
+
+Download Selenium Standalone Server here https://www.seleniumhq.org/download/
+
+And then run server
+
+```bash
+java -jar selenium-server-standalone-<version>.jar
+```
+
+You can find docs here https://github.com/SeleniumHQ/selenium/wiki/Grid2
+
 ## Usage
 
 ```ruby
