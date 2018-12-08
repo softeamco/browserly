@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 5.1.5"
-
-  s.add_development_dependency "comandor"
-  s.add_development_dependency "selenium-webdriver"
+  s.add_development_dependency "comandor", "~> 0.1.5"
+  s.add_development_dependency "selenium-webdriver", "~> 3.141.0"
 end

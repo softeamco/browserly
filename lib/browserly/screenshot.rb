@@ -3,36 +3,44 @@
 module Browserly
   class Screenshot
     extend Comandor
+    attr_reader :file
 
-    attr_reader :browser, :pool, :file, :selector
-
-    def initialize(url, selector = '')
+    def initialize(url, height_selector = '')
       @url = url
-      @pool = Browserly::Pool.instance
-      @browser = pool.take_browser
-      @selector = selector
+      @height_selector = height_selector
     end
 
     def perform
-      take_screenshot! && release_browser!
+      take! && close_session!
+    end
+
+    def driver
+      @driver ||= Browserly::Driver.new(Browserly.configuration.remote_driver, Browserly.configuration.chrome_args).driver
     end
 
     private
 
-    def take_screenshot!
-      browser.navigate.to @url
-      height = browser.execute_script(js) || 780
-      browser.manage.window.resize_to(1280, height)
-      @file = browser.save_screenshot(filename)
+    def take!
+      driver.navigate.to @url
+      @height = driver.execute_script(js) unless @height_selector.nil? || @height_selector == ''
+      @height ||= Browserly.configuration.height
+      driver.manage.window.resize_to(Browserly.configuration.width, @height)
+      @file = driver.save_screenshot(filename)&.path
+      return true if File.exist?(@file)
+      error(:file, 'Unable to save file')
+      false
     end
 
-    def release_browser!
-      pool.release!(browser)
+    def close_session!
+      return true if driver.close && driver.quit
+    rescue => e
+      error(:session, e.message)
+      false
     end
 
     def js
       <<-JAVASCRIPT
-        element = document.getElementById('#{selector}');
+        element = document.getElementById('#{@height_selector}');
 
         if(element != null) {
           return element.clientHeight;
@@ -43,7 +51,7 @@ module Browserly
     end
 
     def filename
-      File.join(Browserly.configuration.tmp_path, "#{Time.now.to_i}.png")
+      File.join(Browserly.configuration.output_dir, "#{Time.now.to_i}.png")
     end
   end
 end

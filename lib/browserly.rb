@@ -1,8 +1,8 @@
-require 'singleton'
 require 'comandor'
 require 'selenium-webdriver'
+require 'browserly/errors/configuration_error'
 require 'browserly/configuration'
-require 'browserly/pool'
+require 'browserly/driver'
 require 'browserly/screenshot'
 require 'browserly/version'
 
